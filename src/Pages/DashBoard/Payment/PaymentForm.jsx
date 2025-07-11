@@ -11,15 +11,20 @@ const PaymentForm = () => {
   const { id } = useParams();
   console.log(id);
   const axiosSecure = useAxiosSecure();
-  const { data: parcels = {} } = useQuery({
+  const { data: parcels = {}, isLoading } = useQuery({
     queryKey: ["parcels", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels/${id}`);
       return res.data;
     },
   });
-  console.log(parcels);
+  if (isLoading) {
+    return ".........loading";
+  }
+  // console.log(parcels);
   const amount = parcels.cost;
+  const amountIncent = amount * 100;
+  console.log(amountIncent);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +47,33 @@ const PaymentForm = () => {
       setError("");
       console.log("pament method", paymentMethod);
     }
+    // step-2 : create payment intent
+    const res = await axiosSecure.post("/create-payment-intent", {
+      amountIncent,
+      id,
+    });
+    console.log("intent", res);
+    const clientSecret = res.data.clientSecret;
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: "Jenny Rosen",
+        },
+      },
+    });
+    if (result.error) {
+      console.log("Payment failed:", result.error.message);
+    } else if (
+      result.paymentIntent &&
+      result.paymentIntent.status === "succeeded"
+    ) {
+      console.log("Payment succeeded:", result);
+    } else {
+      console.log("Unexpected result:", result);
+    }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
