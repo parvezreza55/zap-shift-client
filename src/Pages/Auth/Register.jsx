@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -27,6 +28,18 @@ const Register = () => {
         console.log(error);
       });
   };
+  const handleFile = async (e) => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    console.log(formData);
+    const res = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_upload}`,
+      formData
+    );
+    console.log(res.data);
+  };
   const handleSignInWIthGoogle = () => {
     signGoogle()
       .then((result) => {
@@ -49,6 +62,13 @@ const Register = () => {
             {...register("name")}
             className="input w-sm"
             placeholder="Name"
+          />
+          <label className="label font-bold text-black">Image</label>
+          <input
+            onChange={handleFile}
+            type="file"
+            className="input w-sm"
+            placeholder="Upload Your Photo"
           />
           <label className="label font-bold text-black">Email</label>
           <input
