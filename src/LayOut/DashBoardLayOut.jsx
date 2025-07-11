@@ -1,5 +1,15 @@
 import React from "react";
+import {
+  FaTachometerAlt,
+  FaInfoCircle,
+  FaBoxOpen,
+  FaHome,
+  FaHistory,
+  FaSearchLocation,
+  FaUserEdit,
+} from "react-icons/fa";
 import { NavLink, Outlet } from "react-router";
+import ProFastLogo from "../Pages/Home/Shared/Logo/ProFastLogo";
 
 const DashBoardLayOut = () => {
   return (
@@ -39,21 +49,49 @@ const DashBoardLayOut = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
-          <li>
-            <NavLink to={"/dashboard"}>Dashboard</NavLink>
-          </li>
-          <li>
-            <NavLink>About</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashboard/myparcel"}>My Parcel</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/"}>Home</NavLink>
-          </li>
-        </ul>
+
+        <div className="bg-base-200 min-h-full">
+          <ProFastLogo></ProFastLogo>
+          <ul className="menu bg-base-200 text-base-content  w-80 p-4">
+            {/* Sidebar content here */}
+            <li>
+              <NavLink to="/">
+                <FaHome className="inline mr-2" /> Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard">
+                <FaTachometerAlt className="inline mr-2" /> Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="#">
+                <FaInfoCircle className="inline mr-2" /> About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/myparcel">
+                <FaBoxOpen className="inline mr-2" /> My Parcel
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/dashboard/PaymentHistroy">
+                <FaHistory className="inline mr-2" /> Payment History
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/track">
+                <FaSearchLocation className="inline mr-2" /> Track a Package
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/profile">
+                <FaUserEdit className="inline mr-2" /> Update Profile
+              </NavLink>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
