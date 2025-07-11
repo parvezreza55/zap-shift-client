@@ -89,6 +89,7 @@ const MyParcel = () => {
           <tbody>
             {parcels.map((parcel, index) => (
               <tr key={parcel._id}>
+                {console.log("payment stat", parcel.payment_status)}
                 <td>{index + 1}</td>
                 <td>
                   <span
@@ -120,14 +121,18 @@ const MyParcel = () => {
                   >
                     View
                   </button>
-                  {parcel.payment_status === "unpaid" && (
-                    <button
-                      onClick={() => onPay(parcel)}
-                      className="btn btn-sm btn-warning text-white"
-                    >
-                      Pay
-                    </button>
-                  )}
+
+                  <button
+                    onClick={() => onPay(parcel)}
+                    disabled={parcel.payment_status !== "unpaid"}
+                    className={`px-4 py-[6px] rounded-sm ${
+                      parcel.payment_status !== "unpaid"
+                        ? "bg-gray-100 cursor-not-allowed"
+                        : "bg-warning cursor-pointer"
+                    }`}
+                  >
+                    Pay
+                  </button>
                   <button
                     onClick={() => onDelete(parcel._id)}
                     className="btn btn-sm btn-error text-white"
