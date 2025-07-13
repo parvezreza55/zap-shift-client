@@ -1,27 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
+import useAxios from "../../Hooks/useAxios";
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const states = location.state;
+  const axiosInstance = useAxios();
+  const [profilePic, setProfilePic] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { createUser, signGoogle } = useAuth();
+  const { createUser, signGoogle, updateUserProfile } = useAuth();
 
   const onSubmit = (data) => {
     const { email, password } = data;
     createUser(email, password)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result);
+        const userInfo = {
+          email: data.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString(),
+        };
+        const userRes = await axiosInstance.post("/users", userInfo);
+        console.log(userRes);
+
+        // update data on firebase
+        const updateData = {
+          displayNane: data.name,
+          photoURL: profilePic,
+        };
+        updateUserProfile(updateData)
+          .then(() => {
+            console.log("update profile data");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         navigate(states || "/");
       })
       .catch((error) => {
@@ -38,12 +62,22 @@ const Register = () => {
       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_upload}`,
       formData
     );
-    console.log(res.data);
+    console.log(res.data.data.url);
+    setProfilePic(res.data.data.url);
   };
   const handleSignInWIthGoogle = () => {
     signGoogle()
-      .then((result) => {
+      .then(async (result) => {
         console.log(result.user);
+        const user = result.user;
+        const userInfo = {
+          email: user.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString(),
+        };
+        const userRes = await axiosInstance.post("/users", userInfo);
+        console.log(userRes.data);
         navigate(states || "/");
       })
       .catch((error) => {

@@ -42,7 +42,7 @@ const PaymentHistroy = () => {
             </tr>
           ) : (
             payments.map((payment, index) => (
-              <tr key={payment.parcelId}>
+              <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{payment.parcelId}</td>
                 <td>${payment.amount}</td>

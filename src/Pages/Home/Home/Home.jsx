@@ -4,7 +4,7 @@ import Services from "../Services/Services";
 import ContributorsSlider from "../Contributors/ContributorsSlider";
 import HighlightsList from "../Highlights/HighlightsList";
 import TestimonialSlider from "../CustomerReview/TestimonialSlider";
-import Test from "../../Test/Test";
+// import Test from "../../Test/Test";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <ContributorsSlider></ContributorsSlider>
       <HighlightsList></HighlightsList>
       <TestimonialSlider></TestimonialSlider>
-      <Test></Test>
+      {/* <Test></Test> */}
     </div>
   );
 };
