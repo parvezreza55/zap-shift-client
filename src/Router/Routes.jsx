@@ -11,6 +11,7 @@ import DashBoardLayOut from "../LayOut/DashBoardLayOut";
 import MyParcel from "../Pages/DashBoard/MyParcel";
 import Payment from "../Pages/DashBoard/Payment";
 import PaymentHistroy from "../Pages/DashBoard/PaymetnHistroy/PaymentHistroy";
+import BeARider from "../Pages/BeARider/BeARider";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
         path: "/coverage",
         element: <Coverage></Coverage>,
         loader: () => fetch("./serviceDistrict.json"),
+      },
+      {
+        path: "beARider",
+        element: (
+          <PrivateRoutes>
+            <BeARider></BeARider>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/sendParcel",

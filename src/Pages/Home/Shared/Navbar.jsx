@@ -20,6 +20,11 @@ const Navbar = () => {
           </li>
         </>
       )}
+
+      <li>
+        <NavLink to={"/beARider"}>Be A Rider</NavLink>
+      </li>
+
       <li>
         <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
