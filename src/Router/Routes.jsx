@@ -12,6 +12,7 @@ import MyParcel from "../Pages/DashBoard/MyParcel";
 import Payment from "../Pages/DashBoard/Payment";
 import PaymentHistroy from "../Pages/DashBoard/PaymetnHistroy/PaymentHistroy";
 import BeARider from "../Pages/BeARider/BeARider";
+import PendingRider from "../Pages/BeARider/PendingRider";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: "PaymentHistroy",
         element: <PaymentHistroy></PaymentHistroy>,
+      },
+      {
+        path: "pendingApproval",
+        element: <PendingRider></PendingRider>,
       },
     ],
   },

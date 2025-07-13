@@ -25,7 +25,14 @@ const BeARider = () => {
   const selectedRegion = watch("region");
   const onSubmit = async (data) => {
     try {
-      const res = await axiosSecure.post("/riders", data);
+      const riderData = {
+        ...data,
+        name: user?.displayName || "",
+        email: user?.email || "",
+        status: "pending",
+        created_at: new Date().toISOString(),
+      };
+      const res = await axiosSecure.post("/riders", riderData);
       console.log(res.data);
 
       if (res.data.insertedId) {

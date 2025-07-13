@@ -1,12 +1,14 @@
 import React from "react";
 import {
+  FaHome,
   FaTachometerAlt,
   FaInfoCircle,
   FaBoxOpen,
-  FaHome,
   FaHistory,
   FaSearchLocation,
   FaUserEdit,
+  FaUsers,
+  FaUserClock,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router";
 import ProFastLogo from "../Pages/Home/Shared/Logo/ProFastLogo";
@@ -59,16 +61,19 @@ const DashBoardLayOut = () => {
                 <FaHome className="inline mr-2" /> Home
               </NavLink>
             </li>
+
             <li>
               <NavLink to="/dashboard">
                 <FaTachometerAlt className="inline mr-2" /> Dashboard
               </NavLink>
             </li>
+
             <li>
               <NavLink to="#">
                 <FaInfoCircle className="inline mr-2" /> About
               </NavLink>
             </li>
+
             <li>
               <NavLink to="/dashboard/myparcel">
                 <FaBoxOpen className="inline mr-2" /> My Parcel
@@ -80,14 +85,28 @@ const DashBoardLayOut = () => {
                 <FaHistory className="inline mr-2" /> Payment History
               </NavLink>
             </li>
+
             <li>
               <NavLink to="/dashboard/track">
                 <FaSearchLocation className="inline mr-2" /> Track a Package
               </NavLink>
             </li>
+
             <li>
               <NavLink to="/dashboard/profile">
                 <FaUserEdit className="inline mr-2" /> Update Profile
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/dashboard/activeRiders">
+                <FaUsers className="inline mr-2" /> Active Riders
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/dashboard/pendingApproval">
+                <FaUserClock className="inline mr-2" /> Pending Approval
               </NavLink>
             </li>
           </ul>
